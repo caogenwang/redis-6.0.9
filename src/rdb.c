@@ -1052,7 +1052,7 @@ size_t rdbSavedObjectLen(robj *o, robj *key) {
  * On success if the key was actually saved 1 is returned, otherwise 0
  * is returned (the key was already expired). */
 int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
-    int savelru = server.maxmemory_policy & MAXMEMORY_FLAG_LRU;
+    int savelru = server.maxmemory_policy & MAXMEMORY_FLAG_LRU;//内存策略是LRU，还是LFU
     int savelfu = server.maxmemory_policy & MAXMEMORY_FLAG_LFU;
 
     /* Save the expire time */
@@ -1082,6 +1082,7 @@ int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
     }
 
     /* Save type, key, value */
+    /*保存数据*/
     if (rdbSaveObjectType(rdb,val) == -1) return -1;
     if (rdbSaveStringObject(rdb,key) == -1) return -1;
     if (rdbSaveObject(rdb,val,key) == -1) return -1;
@@ -1192,7 +1193,7 @@ ssize_t rdbSaveSingleModuleAux(rio *rdb, int when, moduleType *mt) {
  * integer pointed by 'error' is set to the value of errno just after the I/O
  * error. */
 int rdbSaveRio(rio *rdb, int *error, int rdbflags, rdbSaveInfo *rsi) {
-    dictIterator *di = NULL;
+    dictIterator *di = NULL;//迭代器
     dictEntry *de;
     char magic[10];
     int j;
@@ -1344,6 +1345,7 @@ int rdbSave(char *filename, rdbSaveInfo *rsi) {//rdb保存
     }
 
     /* Make sure data will not remain on the OS's output buffers */
+    /*确保写进磁盘，不再操作系统的buf中缓存*/
     if (fflush(fp)) goto werr;
     if (fsync(fileno(fp))) goto werr;
     if (fclose(fp)) { fp = NULL; goto werr; }
@@ -1379,7 +1381,7 @@ werr:
     stopSaving(0);
     return C_ERR;
 }
-
+/*根据写时复刻原理，主进程若是修改了数据，则子进程会复制一份，写到rdb文件中*/
 int rdbSaveBackground(char *filename, rdbSaveInfo *rsi) {
     pid_t childpid;
 
@@ -1389,7 +1391,7 @@ int rdbSaveBackground(char *filename, rdbSaveInfo *rsi) {
     server.lastbgsave_try = time(NULL);
     openChildInfoPipe();
 
-    if ((childpid = redisFork(CHILD_TYPE_RDB)) == 0) {
+    if ((childpid = redisFork(CHILD_TYPE_RDB)) == 0) {//子进程完全复制父进程的数据
         int retval;
 
         /* Child */
@@ -2618,6 +2620,7 @@ void saveCommand(client *c) {
 }
 
 /* BGSAVE [SCHEDULE] */
+/*异步保存*/
 void bgsaveCommand(client *c) {
     int schedule = 0;
 
