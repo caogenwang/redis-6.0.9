@@ -1,0 +1,635 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		5A4241B22FFC4E62AF21EB3C /* ZERO_CHECK */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 58D6749A6DA6403383D1A49F /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildPhases = (
+				252A5E4CF94F4CF7A1523C81 /* CMake Rules */,
+			);
+			dependencies = (
+			);
+			name = ZERO_CHECK;
+			productName = ZERO_CHECK;
+		};
+		EF21A29022DC4F22AD9E8968 /* ALL_BUILD */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 87459B603974483EB998610E /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildPhases = (
+				DFEE63D981E44DA68607C5CB /* CMake Rules */,
+			);
+			dependencies = (
+				45939051DAB94C87B3C350A9 /* PBXTargetDependency */,
+				F8C50D84EF0A45ED917A0A68 /* PBXTargetDependency */,
+			);
+			name = ALL_BUILD;
+			productName = ALL_BUILD;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		8CAD3E81038D47B78ADB0FE1 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/main.cpp */ = {isa = PBXBuildFile; fileRef = 07AC204D68594FF6BED51A8B /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/main.cpp */; };
+		FAF116228E0A4647AE906855 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 55372701BD9745008819C0C5 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/CMakeLists.txt */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+		2C1E956622D94612AA4BC3EE /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		733B3EE0AD8F4576A2D14918 /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		86C46C84F00E4987B887D2D7 /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
+		8DE2D01D13474CDABEF61019 /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+		31F828AC201744F2910D2F46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10942F321AE14430B64EA913 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 253F788F8DAE4166943A663B;
+			remoteInfo = LFU;
+		};
+		89E4213C5CFA461CBB0F2604 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10942F321AE14430B64EA913 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A4241B22FFC4E62AF21EB3C;
+			remoteInfo = ZERO_CHECK;
+		};
+		9BDD644A82D9436592004935 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 10942F321AE14430B64EA913 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5A4241B22FFC4E62AF21EB3C;
+			remoteInfo = ZERO_CHECK;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		07AC204D68594FF6BED51A8B /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/main.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = main.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		225D8BAB6E3F45F3BBA3A1D4 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		55372701BD9745008819C0C5 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		89DC1D4527EA44599D0FC4F7 /* LFU */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = LFU; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		145DEE43870B48DB96873319 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				07AC204D68594FF6BED51A8B /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/main.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		5C3D0D6D402E4D06A674792C = {
+			isa = PBXGroup;
+			children = (
+				A4F7C70B9D0E4C99B7A3575E /* LFU */,
+				D3D507C09DD647E7AC4CE007 /* ALL_BUILD */,
+				EFDA6749A51749EFA1FAC3A1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A4F7C70B9D0E4C99B7A3575E /* LFU */ = {
+			isa = PBXGroup;
+			children = (
+				145DEE43870B48DB96873319 /* Source Files */,
+				55372701BD9745008819C0C5 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/CMakeLists.txt */,
+			);
+			name = LFU;
+			sourceTree = "<group>";
+		};
+		B6F20A421202407794DF4B98 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		D3D507C09DD647E7AC4CE007 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				B6F20A421202407794DF4B98 /* CMake Rules */,
+				225D8BAB6E3F45F3BBA3A1D4 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/CMakeLists.txt */,
+			);
+			name = ALL_BUILD;
+			sourceTree = "<group>";
+		};
+		EFDA6749A51749EFA1FAC3A1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89DC1D4527EA44599D0FC4F7 /* LFU */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		253F788F8DAE4166943A663B /* LFU */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CCA12E0C0ECF4094B06FF144 /* Build configuration list for PBXNativeTarget "LFU" */;
+			buildPhases = (
+				767B82E1725D40D1B4982649 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D011D978C8BA4760AEFEEAC5 /* PBXTargetDependency */,
+			);
+			name = LFU;
+			productName = LFU;
+			productReference = 89DC1D4527EA44599D0FC4F7 /* LFU */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		10942F321AE14430B64EA913 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 0940;
+			};
+			buildConfigurationList = E120A94BFDD04E6498B18837 /* Build configuration list for PBXProject "LFU" */;
+			buildSettings = {
+			};
+			buildStyles = (
+				8DE2D01D13474CDABEF61019 /* Debug */,
+				86C46C84F00E4987B887D2D7 /* Release */,
+				2C1E956622D94612AA4BC3EE /* MinSizeRel */,
+				733B3EE0AD8F4576A2D14918 /* RelWithDebInfo */,
+			);
+			compatibilityVersion = "Xcode 3.2";
+			hasScannedForEncodings = 0;
+			mainGroup = 5C3D0D6D402E4D06A674792C;
+			projectDirPath = ../../;
+			projectRoot = "";
+			targets = (
+				EF21A29022DC4F22AD9E8968 /* ALL_BUILD */,
+				253F788F8DAE4166943A663B /* LFU */,
+				5A4241B22FFC4E62AF21EB3C /* ZERO_CHECK */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		252A5E4CF94F4CF7A1523C81 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac -f /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		9F2FC096747A48FEA154EE11 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		A5F60206F3A7445AA7BFC4C4 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		DFEE63D981E44DA68607C5CB /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac -f /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		767B82E1725D40D1B4982649 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8CAD3E81038D47B78ADB0FE1 /* /Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/main.cpp */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		45939051DAB94C87B3C350A9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 253F788F8DAE4166943A663B /* LFU */;
+			targetProxy = 31F828AC201744F2910D2F46 /* PBXContainerItemProxy */;
+		};
+		D011D978C8BA4760AEFEEAC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A4241B22FFC4E62AF21EB3C /* ZERO_CHECK */;
+			targetProxy = 9BDD644A82D9436592004935 /* PBXContainerItemProxy */;
+		};
+		F8C50D84EF0A45ED917A0A68 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5A4241B22FFC4E62AF21EB3C /* ZERO_CHECK */;
+			targetProxy = 89E4213C5CFA461CBB0F2604 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		0155DC65C1AB488EABD29E38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		04028E684B74470BA3E21D15 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		36FB8A198A084E3CB96E8CB3 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		38BB9D3FE7CE4DAF9F6E8EF6 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		6DF9AD0E9A794453AA4022FF /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		7B30B6C98DDC487FB14F5245 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = LFU;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		80B22BA9F91D4119A00053B2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		926A35C048C44A90B6DF2853 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = LFU;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		99FB7282B9524D73B41E351E /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		9C9B5816F7D24762A85E9C24 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac/build";
+			};
+			name = RelWithDebInfo;
+		};
+		9E7C80973F6041F0A385A9E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		A9F02A332AD94D71B89B8B61 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac/build";
+			};
+			name = Release;
+		};
+		AA4B9FCE93EF46B7895E20F6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac/build";
+			};
+			name = Debug;
+		};
+		B4515C84DF1E4B2FB7003514 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "    ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = LFU;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		E80BD5AEE920453999927222 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.13.sdk;
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac/build";
+			};
+			name = MinSizeRel;
+		};
+		F18058368A4A4261AD52A628 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = "";
+				EXECUTABLE_SUFFIX = "";
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = ("/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu");
+				INSTALL_PATH = "";
+				LIBRARY_SEARCH_PATHS = "";
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG  ";
+				OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names  ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = LFU;
+				SECTORDER_FLAGS = "";
+				SYMROOT = "/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/mac";
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		58D6749A6DA6403383D1A49F /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9E7C80973F6041F0A385A9E5 /* Debug */,
+				0155DC65C1AB488EABD29E38 /* Release */,
+				6DF9AD0E9A794453AA4022FF /* MinSizeRel */,
+				36FB8A198A084E3CB96E8CB3 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		87459B603974483EB998610E /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				80B22BA9F91D4119A00053B2 /* Debug */,
+				04028E684B74470BA3E21D15 /* Release */,
+				38BB9D3FE7CE4DAF9F6E8EF6 /* MinSizeRel */,
+				99FB7282B9524D73B41E351E /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		CCA12E0C0ECF4094B06FF144 /* Build configuration list for PBXNativeTarget "LFU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B4515C84DF1E4B2FB7003514 /* Debug */,
+				926A35C048C44A90B6DF2853 /* Release */,
+				7B30B6C98DDC487FB14F5245 /* MinSizeRel */,
+				F18058368A4A4261AD52A628 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E120A94BFDD04E6498B18837 /* Build configuration list for PBXProject "LFU" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA4B9FCE93EF46B7895E20F6 /* Debug */,
+				A9F02A332AD94D71B89B8B61 /* Release */,
+				E80BD5AEE920453999927222 /* MinSizeRel */,
+				9C9B5816F7D24762A85E9C24 /* RelWithDebInfo */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 10942F321AE14430B64EA913 /* Project object */;
+}

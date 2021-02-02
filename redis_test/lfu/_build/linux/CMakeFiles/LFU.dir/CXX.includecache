@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/main.cpp
+iostream
+-
+unordered_map
+-
+list
+-
+unistd.h
+-
+

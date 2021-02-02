@@ -1,0 +1,3 @@
+/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/linux/CMakeFiles/rebuild_cache.dir
+/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/linux/CMakeFiles/edit_cache.dir
+/Users/yangsen/work/redis/redis-6.0.9/redis_test/lfu/_build/linux/CMakeFiles/LFU.dir
