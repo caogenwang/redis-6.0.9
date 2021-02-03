@@ -3137,6 +3137,7 @@ void replicationCron(void) {//  1秒执行一次
     static long long replication_cron_loops = 0;
 
     /* Non blocking connection timeout? */
+    /*已经连接或者正在连接并且没有超时*/
     if (server.masterhost &&
         (server.repl_state == REPL_STATE_CONNECTING ||
          slaveIsInHandshakeState()) &&
