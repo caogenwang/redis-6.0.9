@@ -2046,7 +2046,9 @@ static int instanceLinkNegotiateTLS(redisAsyncContext *context) {
 
 /* Create the async connections for the instance link if the link
  * is disconnected. Note that link->disconnected is true even if just
- * one of the two links (commands and pub/sub) is missing. */
+ * one of the two links (commands and pub/sub) is missing. 
+ * 异步连接
+ * */
 void sentinelReconnectInstance(sentinelRedisInstance *ri) {
     if (ri->link->disconnected == 0) return;
     if (ri->addr->port == 0) return; /* port == 0 means invalid address. */
@@ -2080,7 +2082,7 @@ void sentinelReconnectInstance(sentinelRedisInstance *ri) {
             sentinelSetClientName(ri,link->cc,"cmd");
 
             /* Send a PING ASAP when reconnecting. */
-            sentinelSendPing(ri);
+            sentinelSendPing(ri);//发送ping包
         }
     }
     /* Pub / Sub */
@@ -3051,7 +3053,7 @@ int sentinelIsQuorumReachable(sentinelRedisInstance *master, int *usableptr) {
     return result;
 }
 
-void sentinelCommand(client *c) {
+void sentinelCommand(client *c) {//接收处理sentinel发送的命令
     if (!strcasecmp(c->argv[1]->ptr,"masters")) {
         /* SENTINEL MASTERS */
         if (c->argc != 2) goto numargserr;
@@ -3100,6 +3102,9 @@ void sentinelCommand(client *c) {
          * runid is "*" if we are not seeking for a vote from the Sentinel
          * in order to elect the failover leader. Otherwise it is set to the
          * runid we want the Sentinel to vote if it did not already voted.
+         * 
+         * runid 是 "*"时，说明不寻求投票，如果寻求投票，则runid不为空同时，此sentinel没有
+         * 投过票
          */
         sentinelRedisInstance *ri;
         long long req_epoch;
@@ -3804,7 +3809,7 @@ void sentinelAskMasterStateToOtherSentinels(sentinelRedisInstance *master, int f
     dictIterator *di;
     dictEntry *de;
 
-    di = dictGetIterator(master->sentinels);//向Sentinels询问其他master的状态
+    di = dictGetIterator(master->sentinels);//此master对应的sentinel。向Sentinels询问其他master的状态
     while((de = dictNext(di)) != NULL) {
         sentinelRedisInstance *ri = dictGetVal(de);
         mstime_t elapsed = mstime() - ri->last_master_down_reply_time;
@@ -3860,16 +3865,18 @@ void sentinelSimFailureCrash(void) {
  * voted for the specified 'req_epoch' or one greater.
  *
  * If a vote is not available returns NULL, otherwise return the Sentinel
- * runid and populate the leader_epoch with the epoch of the vote. */
+ * runid and populate the leader_epoch with the epoch of the vote. 
+ * 投票
+ * */
 char *sentinelVoteLeader(sentinelRedisInstance *master, uint64_t req_epoch, char *req_runid, uint64_t *leader_epoch) {
     if (req_epoch > sentinel.current_epoch) {
-        sentinel.current_epoch = req_epoch;
-        sentinelFlushConfig();
+        sentinel.current_epoch = req_epoch;//当前的任期
+        sentinelFlushConfig();//更新配置
         sentinelEvent(LL_WARNING,"+new-epoch",master,"%llu",
             (unsigned long long) sentinel.current_epoch);
     }
-
-    if (master->leader_epoch < req_epoch && sentinel.current_epoch <= req_epoch)
+    /*这个判断条件是说明需要选举新的leader*/
+    if (master->leader_epoch < req_epoch && sentinel.current_epoch <= req_epoch)//要更新leader
     {
         sdsfree(master->leader);
         master->leader = sdsnew(req_runid);
@@ -3933,7 +3940,7 @@ char *sentinelGetLeader(sentinelRedisInstance *master, uint64_t epoch) {
     /*总的投票数*/
     voters = dictSize(master->sentinels)+1; /* All the other sentinels and me.*/
 
-    /* Count other sentinels votes */
+    /* Count other sentinels votes，计算其他sentinel的票数 */
     di = dictGetIterator(master->sentinels);
     while((de = dictNext(di)) != NULL) {
         sentinelRedisInstance *ri = dictGetVal(de);
@@ -3975,7 +3982,7 @@ char *sentinelGetLeader(sentinelRedisInstance *master, uint64_t epoch) {
 
     voters_quorum = voters/2+1;
     if (winner && (max_votes < voters_quorum || max_votes < master->quorum))
-        winner = NULL;
+        winner = NULL;//选举失败
 
     winner = winner ? sdsnew(winner) : NULL;
     sdsfree(myvote);
@@ -4227,7 +4234,7 @@ sentinelRedisInstance *sentinelSelectSlave(sentinelRedisInstance *master) {
     return selected;
 }
 
-/* ---------------- Failover state machine implementation ------------------- */
+/* ---------------- Failover state machine implementation 失败状态后等待重启，选举leader------------------- */
 void sentinelFailoverWaitStart(sentinelRedisInstance *ri) {
     char *leader;
     int isleader;
@@ -4531,7 +4538,7 @@ void sentinelHandleRedisInstance(sentinelRedisInstance *ri) {
     /* Only masters ，检查是否down掉了*/
     if (ri->flags & SRI_MASTER) {
         sentinelCheckObjectivelyDown(ri);
-        if (sentinelStartFailoverIfNeeded(ri))
+        if (sentinelStartFailoverIfNeeded(ri))//恢复故障
             sentinelAskMasterStateToOtherSentinels(ri,SENTINEL_ASK_FORCED);///*odown，客观宕机，向其他sentinel询问*/
         sentinelFailoverStateMachine(ri);
         sentinelAskMasterStateToOtherSentinels(ri,SENTINEL_NO_FLAGS);
@@ -4546,11 +4553,12 @@ void sentinelHandleDictOfRedisInstances(dict *instances) {
     sentinelRedisInstance *switch_to_promoted = NULL;
 
     /* There are a number of things we need to perform against every master. */
+    /*确认每个master的状况，一个sentinel可以监听好几个master*/
     di = dictGetIterator(instances);
     while((de = dictNext(di)) != NULL) {
         sentinelRedisInstance *ri = dictGetVal(de);
 
-        sentinelHandleRedisInstance(ri);
+        sentinelHandleRedisInstance(ri);//如何处理master
         if (ri->flags & SRI_MASTER) {
             //存在slave或者sentinel的，也要进行状态的获取
             sentinelHandleDictOfRedisInstances(ri->slaves);
@@ -4596,9 +4604,9 @@ void sentinelCheckTiltCondition(void) {
     sentinel.previous_time = mstime();
 }
 
-void sentinelTimer(void) {
+void sentinelTimer(void) {//sentinel的周期事件处理器，周期处理的是监听的master的状态
     sentinelCheckTiltCondition();
-    sentinelHandleDictOfRedisInstances(sentinel.masters);
+    sentinelHandleDictOfRedisInstances(sentinel.masters);//masters,sentinel监听的master
     sentinelRunPendingScripts();
     sentinelCollectTerminatedScripts();
     sentinelKillTimedoutScripts();
