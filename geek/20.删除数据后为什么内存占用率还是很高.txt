@@ -1,0 +1,48 @@
+1. 当数据删除后，Redis释放的内存空间会由内存分配器管理，并不会立即返回给操作系统。
+    所以，操作系统仍然会记录着给Redis分配了大量内存.
+
+2. Redis释放的内存空间可能并不是连续的，那么，这些不连续的内存空间很有可能处于一种闲置的状态。
+    这就会导致一个问题：虽然有空闲空间，Redis却无法用来保存数据，不仅会减少Redis能够实际保存
+    的数据量，还会降低Redis运行机器的成本回报率.
+
+    内存碎片
+
+3. 内存碎片是如何形成的？
+    a) 内因：内存分配器的分配策略
+    b) 外因：键值对大小不一样和删改操作
+    我们就知道了造成内存碎片的内外因素，其中，内存分配器策略是内因，而Redis的负载属于外因，
+    包括了大小不一的键值对和键值对修改删除带来的内存空间变化
+
+4. info memory
+        # Memory
+        used_memory:821704
+        used_memory_human:802.45K
+        used_memory_rss:3608576
+        used_memory_rss_human:3.44M
+        used_memory_peak:821704
+        used_memory_peak_human:802.45K
+        total_system_memory:8353849344
+        total_system_memory_human:7.78G
+        used_memory_lua:37888
+        used_memory_lua_human:37.00K
+        maxmemory:0
+        maxmemory_human:0B
+        maxmemory_policy:noeviction
+        mem_fragmentation_ratio:4.39 这个指标代表了内存的碎片率，超过1.5就不太好了，越大越不好
+        mem_allocator:jemalloc-4.0.3
+
+5. 如何清理内存碎片？
+    碎片清理是有代价的，操作系统需要把多份数据拷贝到新位置，把原有空间释放出来，这会带来时间开销
+    设置：config set activedefrag yes
+
+    active-defrag-ignore-bytes 100mb：表示内存碎片的字节数达到100MB时，开始清理；
+    active-defrag-threshold-lower 10：表示内存碎片空间占操作系统分配给Redis的总空间比例达到10%时，开始清理。
+
+    info memory命令是一个好工具，可以帮助你查看碎片率的情况；
+    碎片率阈值是一个好经验，可以帮忙你有效地判断是否要进行碎片清理了；
+    内存碎片自动清理是一个好方法，可以避免因为碎片导致Redis的内存实际利用率降低，提升成本收益率。
+    内存碎片并不可怕，我们要做的就是了解它，重视它，并借用高效的方法解决它。
+
+    最后，我再给你提供一个小贴士：内存碎片自动清理涉及内存拷贝，这对Redis而言，是个潜在的风险。
+    如果你在实践过程中遇到Redis性能变慢，记得通过日志看下是否正在进行碎片清理。如果Redis的确正
+    在清理碎片，那么，我建议你调小active-defrag-cycle-max的值，以减轻对正常请求处理的影响。

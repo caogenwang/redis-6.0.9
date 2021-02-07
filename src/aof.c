@@ -247,7 +247,9 @@ void stopAppendOnly(void) {
 }
 
 /* Called when the user switches from "appendonly no" to "appendonly yes"
- * at runtime using the CONFIG command. */
+ * at runtime using the CONFIG command. 
+ * 开始aof文件
+ * */
 int startAppendOnly(void) {
     char cwd[MAXPATHLEN]; /* Current working dir path for error messages. */
     int newfd;
@@ -500,7 +502,7 @@ try_fsync:
         return;
 
     /* Perform the fsync if needed. */
-    if (server.aof_fsync == AOF_FSYNC_ALWAYS) {
+    if (server.aof_fsync == AOF_FSYNC_ALWAYS) {//always的写回策略
         /* redis_fsync is defined as fdatasync() for Linux in order to avoid
          * flushing metadata. */
         latencyStartMonitor(latency);
@@ -509,7 +511,7 @@ try_fsync:
         latencyAddSampleIfNeeded("aof-fsync-always",latency);
         server.aof_fsync_offset = server.aof_current_size;
         server.aof_last_fsync = server.unixtime;
-    } else if ((server.aof_fsync == AOF_FSYNC_EVERYSEC &&
+    } else if ((server.aof_fsync == AOF_FSYNC_EVERYSEC &&//everysec写回策略
                 server.unixtime > server.aof_last_fsync)) {
         if (!sync_in_progress) {
             aof_background_fsync(server.aof_fd);
@@ -647,7 +649,7 @@ void feedAppendOnlyFile(struct redisCommand *cmd, int dictid, robj **argv, int a
      * in a buffer, so that when the child process will do its work we
      * can append the differences to the new append only file. */
     if (server.aof_child_pid != -1)
-        aofRewriteBufferAppend((unsigned char*)buf,sdslen(buf));
+        aofRewriteBufferAppend((unsigned char*)buf,sdslen(buf));//重写aof文件
 
     sdsfree(buf);
 }

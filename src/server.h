@@ -790,13 +790,15 @@ typedef struct client {
     int resp;               /* RESP protocol version. Can be 2 or 3. */
     redisDb *db;            /* Pointer to currently SELECTed DB. */
     robj *name;             /* As set by CLIENT SETNAME. */
-    sds querybuf;           /* Buffer we use to accumulate client queries. */
+    sds querybuf;           /* 输入缓冲区,最大为1GB  Buffer we use to accumulate client queries. */
     size_t qb_pos;          /* The position we have read in querybuf. */
     sds pending_querybuf;   /* If this client is flagged as master, this buffer
                                represents the yet not applied portion of the
                                replication stream that we are receiving from
-                               the master. */
-    size_t querybuf_peak;   /* Recent (100ms or more) peak of querybuf size. */
+                               the master. 
+                               从master接收命令的缓冲区
+                               */
+    size_t querybuf_peak;   /* Recent (100ms or more) peak of querybuf size.100ms内接收命令的个数 */
     int argc;               /* Num of arguments of current command. */
     robj **argv;            /* Arguments of current command. */
     size_t argv_len_sum;    /* Sum of lengths of objects in argv list. */
@@ -866,7 +868,7 @@ typedef struct client {
      * before adding it the new value. */
     uint64_t client_cron_last_memory_usage;
     int      client_cron_last_memory_type;
-    /* Response buffer */
+    /* Response buffer 输出缓冲区*/
     int bufpos;
     char buf[PROTO_REPLY_CHUNK_BYTES];
 } client;
