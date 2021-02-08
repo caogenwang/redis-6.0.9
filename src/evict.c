@@ -153,7 +153,7 @@ void evictionPoolAlloc(void) {
 }
 
 /* This is an helper function for freeMemoryIfNeeded(), it is used in order
- * to populate the evictionPool with a few entries every time we want to
+ * to populate the evictionPool（构成淘汰池） with a few entries every time we want to
  * expire a key. Keys with idle time smaller than one of the current
  * keys are added. Keys are always added if there are free entries.
  *
@@ -187,7 +187,7 @@ void evictionPoolPopulate(int dbid, dict *sampledict, dict *keydict, struct evic
          * idle just because the code initially handled LRU, but is in fact
          * just a score where an higher score means better candidate. */
         if (server.maxmemory_policy & MAXMEMORY_FLAG_LRU) {
-            idle = estimateObjectIdleTime(o);
+            idle = estimateObjectIdleTi me(o);
         } else if (server.maxmemory_policy & MAXMEMORY_FLAG_LFU) {
             /* When we use an LRU policy, we sort the keys by idle time
              * so that we expire keys starting from greater idle time.
@@ -445,6 +445,8 @@ int getMaxmemoryState(size_t *total, size_t *logical, size_t *tofree, float *lev
  * were over the limit, but the attempt to free memory was successful.
  * Otherwise if we are over the memory limit, but not enough memory
  * was freed to return back under the limit, the function returns C_ERR. */
+
+/*回收策略*/
 int freeMemoryIfNeeded(void) {
     int keys_freed = 0;
     /* By default replicas should ignore maxmemory
@@ -471,7 +473,7 @@ int freeMemoryIfNeeded(void) {
     if (server.maxmemory_policy == MAXMEMORY_NO_EVICTION)
         goto cant_free; /* We need to free memory, but policy forbids. */
 
-    while (mem_freed < mem_tofree) {//释放一部分内存
+    while (mem_freed < mem_tofree) {//释放一部分内存，一直到达到要释放的大小为止
         int j, k, i;
         static unsigned int next_db = 0;
         sds bestkey = NULL;
@@ -480,6 +482,7 @@ int freeMemoryIfNeeded(void) {
         dict *dict;
         dictEntry *de;
 
+        /*lru和lfu的回收策略*/
         if (server.maxmemory_policy & (MAXMEMORY_FLAG_LRU|MAXMEMORY_FLAG_LFU) ||
             server.maxmemory_policy == MAXMEMORY_VOLATILE_TTL)
         {
@@ -491,6 +494,7 @@ int freeMemoryIfNeeded(void) {
                 /* We don't want to make local-db choices when expiring keys,
                  * so to start populate the eviction pool sampling keys from
                  * every DB. */
+                /*遍历所有的db*/
                 for (i = 0; i < server.dbnum; i++) {
                     db = server.db+i;
                     dict = (server.maxmemory_policy & MAXMEMORY_FLAG_ALLKEYS) ?
@@ -517,7 +521,7 @@ int freeMemoryIfNeeded(void) {
 
                     /* Remove the entry from the pool. */
                     if (pool[k].key != pool[k].cached)
-                        sdsfree(pool[k].key);
+                        sdsfree(pool[k].key);//释放key
                     pool[k].key = NULL;
                     pool[k].idle = 0;
 

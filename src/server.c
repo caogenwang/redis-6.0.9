@@ -3663,7 +3663,7 @@ int processCommand(client *c) {
         }
         /*内存不够了*/
         if (out_of_memory && reject_cmd_on_oom) {
-            rejectCommand(c, shared.oomerr);
+            rejectCommand(c, shared.oomerr);//拒绝执行操作
             return C_OK;
         }
 
