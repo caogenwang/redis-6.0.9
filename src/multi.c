@@ -279,6 +279,7 @@ void watchForKey(client *c, robj *key) {
             return; /* Key already watched */
     }
     /* This key is not already watched in this DB. Let's add it */
+    /*将client放到key为键的链表上*/
     clients = dictFetchValue(c->db->watched_keys,key);
     if (!clients) {
         clients = listCreate();//每个被监视的key，对应哪些client
