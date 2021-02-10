@@ -55,7 +55,7 @@ void freeClientMultiState(client *c) {
 }
 
 /* Add a new command into the MULTI commands queue */
-void queueMultiCommand(client *c) {
+void queueMultiCommand(client *c) {//将执行的命令存放到队列上
     multiCmd *mc;
     int j;
 
@@ -94,7 +94,7 @@ void flagTransaction(client *c) {
         c->flags |= CLIENT_DIRTY_EXEC;
 }
 
-void multiCommand(client *c) {
+void multiCommand(client *c) {//开始执行事务
     if (c->flags & CLIENT_MULTI) {
         addReplyError(c,"MULTI calls can not be nested");
         return;
