@@ -91,7 +91,7 @@ static int rdbWriteRaw(rio *rdb, void *p, size_t len) {
 }
 
 int rdbSaveType(rio *rdb, unsigned char type) {
-    return rdbWriteRaw(rdb,&type,1);
+    return rdbWriteRaw(rdb,&type,1);//写入一个字节的type
 }
 
 /* Load a "type" in RDB format, that is a one byte unsigned integer.
@@ -1083,8 +1083,8 @@ int rdbSaveKeyValuePair(rio *rdb, robj *key, robj *val, long long expiretime) {
 
     /* Save type, key, value */
     /*保存数据*/
-    if (rdbSaveObjectType(rdb,val) == -1) return -1;
-    if (rdbSaveStringObject(rdb,key) == -1) return -1;
+    if (rdbSaveObjectType(rdb,val) == -1) return -1;//value有很多类型
+    if (rdbSaveStringObject(rdb,key) == -1) return -1;//key一般就是string类型
     if (rdbSaveObject(rdb,val,key) == -1) return -1;
 
     /* Delay return if required (for testing) */
@@ -1192,6 +1192,7 @@ ssize_t rdbSaveSingleModuleAux(rio *rdb, int when, moduleType *mt) {
  * When the function returns C_ERR and if 'error' is not NULL, the
  * integer pointed by 'error' is set to the value of errno just after the I/O
  * error. */
+/*注意rdb文件的格式*/
 int rdbSaveRio(rio *rdb, int *error, int rdbflags, rdbSaveInfo *rsi) {
     dictIterator *di = NULL;//迭代器
     dictEntry *de;
@@ -1203,17 +1204,17 @@ int rdbSaveRio(rio *rdb, int *error, int rdbflags, rdbSaveInfo *rsi) {
     if (server.rdb_checksum)
         rdb->update_cksum = rioGenericUpdateChecksum;
     snprintf(magic,sizeof(magic),"REDIS%04d",RDB_VERSION);
-    if (rdbWriteRaw(rdb,magic,9) == -1) goto werr;
+    if (rdbWriteRaw(rdb,magic,9) == -1) goto werr;//先写上redis version
     if (rdbSaveInfoAuxFields(rdb,rdbflags,rsi) == -1) goto werr;
     if (rdbSaveModulesAux(rdb, REDISMODULE_AUX_BEFORE_RDB) == -1) goto werr;
-
+    /*遍历所有的数据*/
     for (j = 0; j < server.dbnum; j++) {
         redisDb *db = server.db+j;
         dict *d = db->dict;
         if (dictSize(d) == 0) continue;
         di = dictGetSafeIterator(d);
 
-        /* Write the SELECT DB opcode */
+        /* Write the SELECT DB opcode 写入一个字节的操作类型*/
         if (rdbSaveType(rdb,RDB_OPCODE_SELECTDB) == -1) goto werr;
         if (rdbSaveLen(rdb,j) == -1) goto werr;
 
@@ -1273,7 +1274,7 @@ int rdbSaveRio(rio *rdb, int *error, int rdbflags, rdbSaveInfo *rsi) {
      * loading code skips the check in this case. */
     cksum = rdb->cksum;
     memrev64ifbe(&cksum);
-    if (rioWrite(rdb,&cksum,8) == 0) goto werr;
+    if (rioWrite(rdb,&cksum,8) == 0) goto werr;//8个字节的checksum
     return C_OK;
 
 werr:
@@ -2143,7 +2144,7 @@ int rdbLoadRio(rio *rdb, int rdbflags, rdbSaveInfo *rsi) {
         sds key;
         robj *val;
 
-        /* Read type. */
+        /* Read type.读取类型 */
         if ((type = rdbLoadType(rdb)) == -1) goto eoferr;
 
         /* Handle special types. */

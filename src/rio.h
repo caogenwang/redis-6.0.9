@@ -99,19 +99,20 @@ typedef struct _rio rio;
 /* The following functions are our interface with the stream. They'll call the
  * actual implementation of read / write / tell, and will update the checksum
  * if needed. */
-
+/*如何写文件*/
 static inline size_t rioWrite(rio *r, const void *buf, size_t len) {
     if (r->flags & RIO_FLAG_WRITE_ERROR) return 0;
     while (len) {
+        /*一般都和内存页面大小有关，一次写入多少个字节max_processing_chunk*/
         size_t bytes_to_write = (r->max_processing_chunk && r->max_processing_chunk < len) ? r->max_processing_chunk : len;
         if (r->update_cksum) r->update_cksum(r,buf,bytes_to_write);
         if (r->write(r,buf,bytes_to_write) == 0) {
             r->flags |= RIO_FLAG_WRITE_ERROR;
             return 0;
         }
-        buf = (char*)buf + bytes_to_write;
-        len -= bytes_to_write;
-        r->processed_bytes += bytes_to_write;
+        buf = (char*)buf + bytes_to_write;//移动指针
+        len -= bytes_to_write;//还剩多少个
+        r->processed_bytes += bytes_to_write;//总共写了多少个
     }
     return 1;
 }

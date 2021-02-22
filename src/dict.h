@@ -72,7 +72,7 @@ typedef struct dictht {
     unsigned long sizemask;
     unsigned long used;
 } dictht;
-
+/*注意rehash的过程*/
 typedef struct dict {
     dictType *type;
     void *privdata;
