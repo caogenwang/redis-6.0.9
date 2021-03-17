@@ -106,14 +106,14 @@ client *createClient(connection *conn) {
      * contexts (for instance a Lua script) we need a non connected client. */
     if (conn) {
         connNonBlock(conn);
-        connEnableTcpNoDelay(conn);
+        connEnableTcpNoDelay(conn);//设置为非阻塞，不使用nagle算法
         if (server.tcpkeepalive)
             connKeepAlive(conn,server.tcpkeepalive);
-        connSetReadHandler(conn, readQueryFromClient);
+        connSetReadHandler(conn, readQueryFromClient);//设置读buf的回调
         connSetPrivateData(conn, c);
     }
 
-    selectDb(c,0);
+    selectDb(c,0);//选择数据库
     uint64_t client_id = ++server.next_client_id;
     c->id = client_id;
     c->resp = 2;
@@ -931,7 +931,7 @@ static void acceptCommonHandler(connection *conn, int flags, char *ip) {
     char conninfo[100];
     UNUSED(ip);
 
-    if (connGetState(conn) != CONN_STATE_ACCEPTING) {
+    if (connGetState(conn) != CONN_STATE_ACCEPTING) {//如果不是accept则退出
         serverLog(LL_VERBOSE,
             "Accepted client connection in error state: %s (conn: %s)",
             connGetLastError(conn),
@@ -967,7 +967,7 @@ static void acceptCommonHandler(connection *conn, int flags, char *ip) {
     }
 
     /* Create connection and client */
-    if ((c = createClient(conn)) == NULL) {//创建一个客户端
+    if ((c = createClient(conn)) == NULL) {//创建一个客户端，挂在了server的client链表上
         serverLog(LL_WARNING,
             "Error registering fd event for the new client: %s (conn: %s)",
             connGetLastError(conn),
@@ -1005,7 +1005,7 @@ void acceptTcpHandler(aeEventLoop *el, int fd, void *privdata, int mask) {
     UNUSED(mask);
     UNUSED(privdata);
 
-    while(max--) {
+    while(max--) {//连接的个数有限制,应该是一直处理accept队列上的所有连接
         cfd = anetTcpAccept(server.neterr, fd, cip, sizeof(cip), &cport);
         if (cfd == ANET_ERR) {
             if (errno != EWOULDBLOCK)
@@ -1015,7 +1015,7 @@ void acceptTcpHandler(aeEventLoop *el, int fd, void *privdata, int mask) {
         }
         serverLog(LL_VERBOSE,"Accepted %s:%d", cip, cport);
         //cfd连接的socket
-        acceptCommonHandler(connCreateAcceptedSocket(cfd),0,cip);//创建一个新的连接
+        acceptCommonHandler(connCreateAcceptedSocket(cfd),0,cip);//创建一个新的连接，同时会关联这个客户端的读写处理函数
     }
 }
 
@@ -3007,7 +3007,7 @@ void *IOThreadMain(void *myid) {
     redisSetCpuAffinity(server.server_cpulist);
     makeThreadKillable();
 
-    while(1) {
+    while(1) {/*循环这里处理网络IO*/
         /* Wait for start */
         for (int j = 0; j < 1000000; j++) {
             if (io_threads_pending[id] != 0) break;
@@ -3032,9 +3032,9 @@ void *IOThreadMain(void *myid) {
         while((ln = listNext(&li))) {
             client *c = listNodeValue(ln);
             if (io_threads_op == IO_THREADS_OP_WRITE) {
-                writeToClient(c,0);
+                writeToClient(c,0);//负责往客户端写
             } else if (io_threads_op == IO_THREADS_OP_READ) {
-                readQueryFromClient(c->conn);
+                readQueryFromClient(c->conn);//负责从客户端读
             } else {
                 serverPanic("io_threads_op value is unknown");
             }

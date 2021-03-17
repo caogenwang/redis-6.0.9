@@ -110,7 +110,7 @@ static int aeApiPoll(aeEventLoop *eventLoop, struct timeval *tvp) {
     int retval, numevents = 0;
 
     retval = epoll_wait(state->epfd,state->events,eventLoop->setsize,
-            tvp ? (tvp->tv_sec*1000 + tvp->tv_usec/1000) : -1);
+            tvp ? (tvp->tv_sec*1000 + tvp->tv_usec/1000) : -1);//等待所有的事件发生
     if (retval > 0) {
         int j;
 
@@ -124,7 +124,7 @@ static int aeApiPoll(aeEventLoop *eventLoop, struct timeval *tvp) {
             if (e->events & EPOLLERR) mask |= AE_WRITABLE|AE_READABLE;
             if (e->events & EPOLLHUP) mask |= AE_WRITABLE|AE_READABLE;
             eventLoop->fired[j].fd = e->data.fd;
-            eventLoop->fired[j].mask = mask;
+            eventLoop->fired[j].mask = mask;//把已经可读可写事件放到fired
         }
     }
     return numevents;

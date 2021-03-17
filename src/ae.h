@@ -71,7 +71,7 @@ typedef void aeBeforeSleepProc(struct aeEventLoop *eventLoop);
 /* File event structure */
 typedef struct aeFileEvent {
     int mask; /* one of AE_(READABLE|WRITABLE|BARRIER) */
-    aeFileProc *rfileProc;
+    aeFileProc *rfileProc;/*读写的回调函数*/
     aeFileProc *wfileProc;
     void *clientData;
 } aeFileEvent;
@@ -104,7 +104,7 @@ typedef struct aeEventLoop {
     time_t lastTime;     /* Used to detect system clock skew */
     aeFileEvent *events; /* Registered events */
     aeFiredEvent *fired; /* Fired events */
-    aeTimeEvent *timeEventHead;
+    aeTimeEvent *timeEventHead;/* Timer event*/
     int stop;
     void *apidata; /* This is used for polling API specific data */
     aeBeforeSleepProc *beforesleep;

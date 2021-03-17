@@ -118,7 +118,7 @@ void bioInit(void) {
     /* Ready to spawn our threads. We use the single argument the thread
      * function accepts in order to pass the job ID the thread is
      * responsible of. */
-    for (j = 0; j < BIO_NUM_OPS; j++) {
+    for (j = 0; j < BIO_NUM_OPS; j++) {//创建了3个IO线程
         void *arg = (void*)(unsigned long) j;
         if (pthread_create(&thread,&attr,bioProcessBackgroundJobs,arg) != 0) {
             serverLog(LL_WARNING,"Fatal: Can't initialize Background Jobs.");
@@ -156,13 +156,13 @@ void *bioProcessBackgroundJobs(void *arg) {
 
     switch (type) {
     case BIO_CLOSE_FILE:
-        redis_set_thread_title("bio_close_file");
+        redis_set_thread_title("bio_close_file");//关闭文件
         break;
     case BIO_AOF_FSYNC:
-        redis_set_thread_title("bio_aof_fsync");
+        redis_set_thread_title("bio_aof_fsync");//aof同步
         break;
     case BIO_LAZY_FREE:
-        redis_set_thread_title("bio_lazy_free");
+        redis_set_thread_title("bio_lazy_free");//释放内存
         break;
     }
 
@@ -179,11 +179,11 @@ void *bioProcessBackgroundJobs(void *arg) {
         serverLog(LL_WARNING,
             "Warning: can't mask SIGALRM in bio.c thread: %s", strerror(errno));
 
-    while(1) {
+    while(1) {//在这里循环处理
         listNode *ln;
 
         /* The loop always starts with the lock hold. */
-        if (listLength(bio_jobs[type]) == 0) {
+        if (listLength(bio_jobs[type]) == 0) {//没有job就休眠
             pthread_cond_wait(&bio_newjob_cond[type],&bio_mutex[type]);
             continue;
         }
