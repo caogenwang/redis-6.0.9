@@ -576,16 +576,16 @@ int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,
     }
 
     /* Use an SDS string for command construction */
-    cmd = sdsempty();
+    cmd = sdsempty();//cmd使用的是一个动态字符串
     if (cmd == NULL)
         return -1;
 
-    /* We already know how much storage we need */
+    /* We already know how much storage we need，申请空间*/
     cmd = sdsMakeRoomFor(cmd, totlen);
     if (cmd == NULL)
         return -1;
 
-    /* Construct command */
+    /* Construct command 构造命令*/
     cmd = sdscatfmt(cmd, "*%i\r\n", argc);
     for (j=0; j < argc; j++) {
         len = argvlen ? argvlen[j] : strlen(argv[j]);

@@ -875,12 +875,12 @@ static int cliConnect(int flags) {
         }
 
         if (config.hostsocket == NULL) {
-            context = redisConnect(config.hostip,config.hostport);
+            context = redisConnect(config.hostip,config.hostport);//连接服务器
         } else {
             context = redisConnectUnix(config.hostsocket);
         }
 
-        if (!context->err && config.tls) {
+        if (!context->err && config.tls) {//配置了tls
             const char *err = NULL;
             if (cliSecureConnection(context, &err) == REDIS_ERR && err) {
                 fprintf(stderr, "Could not negotiate a TLS connection: %s\n", err);
