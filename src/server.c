@@ -2967,7 +2967,9 @@ void initServer(void) {
 
     /* Create the timer callback, this is our way to process many background
      * operations incrementally, like clients timeout, eviction of unaccessed
-     * expired keys and so forth. */
+     * expired keys and so forth. 
+     * 添加timer事件
+     * */
     if (aeCreateTimeEvent(server.el, 1, serverCron, NULL, NULL) == AE_ERR) {
         serverPanic("Can't create event loop timers.");
         exit(1);
@@ -3005,7 +3007,9 @@ void initServer(void) {
     }
 
     /* Register before and after sleep handlers (note this needs to be done
-     * before loading persistence since it is used by processEventsWhileBlocked. */
+     * before loading persistence since it is used by processEventsWhileBlocked. 
+     * 给el添加两个处理事件，el是一个dispatch()
+     */
     aeSetBeforeSleepProc(server.el,beforeSleep);
     aeSetAfterSleepProc(server.el,afterSleep);
 
@@ -5364,6 +5368,7 @@ int main(int argc, char **argv) {
     setOOMScoreAdj(-1);
 
     aeMain(server.el);
+    /*停止的时候就删除这个dispatch*/
     aeDeleteEventLoop(server.el);
     return 0;
 }

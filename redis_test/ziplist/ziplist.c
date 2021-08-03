@@ -577,8 +577,8 @@ void zipEntry(unsigned char *p, zlentry *e) {
 unsigned char *ziplistNew(void) {
     unsigned int bytes = ZIPLIST_HEADER_SIZE+ZIPLIST_END_SIZE;
     unsigned char *zl = malloc(bytes);
-    ZIPLIST_BYTES(zl) = intrev32ifbe(bytes);
-    ZIPLIST_TAIL_OFFSET(zl) = intrev32ifbe(ZIPLIST_HEADER_SIZE);
+    ZIPLIST_BYTES(zl) = intrev32ifbe(bytes);//先把长度记录下来,第一个4字节
+    ZIPLIST_TAIL_OFFSET(zl) = intrev32ifbe(ZIPLIST_HEADER_SIZE);//第一个4字节
     ZIPLIST_LENGTH(zl) = 0;
     zl[bytes-1] = ZIP_END;
     return zl;
